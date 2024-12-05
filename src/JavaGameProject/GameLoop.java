@@ -1,19 +1,15 @@
 package JavaGameProject;
 
-import JavaGameProject.Characters.Player;
-
 public class GameLoop {
 
-//    private final Scanner sc;
     private final NarrativeManager narrator;
-    private final MiniGameList gameList;
-    private final Player player;
+    private GamesList gameList;
+    private Main.Character player;
 
-    public GameLoop(NarrativeManager narrator, MiniGameList gameList, Player player) {
-//        this.sc = sc;
-        this.narrator = narrator;
-        this.gameList = gameList;
-        this.player = player;
+    public GameLoop() {
+        narrator = new NarrativeManager();
+        gameList = new GamesList();
+        player = new Main.Character("Player 1", 100);
     }
 
 
@@ -21,18 +17,30 @@ public class GameLoop {
         boolean gameLost = false;
 
         while (true) {
+            narrator.startConversation();
+            String s = GetInput.getInput();
+
+            if (s.equalsIgnoreCase("n")) {
+                return;
+            }
+
+            System.out.println("Get ready " + player.getName());
+
+            narrator.printGameRules();
+
             while (!gameList.isLastGame() && !gameLost) {
                 narrator.getNextNarration();
 
-                while (!gameList.isLastGame() && !gameLost) {
+                while (!gameList.isLastGame()) {
                     if (gameList.playNextGame()) {
                         break;
                     } else {
-                        System.out.print("Game Lost! Play Again?(Y/N): ");
                         player.takeDamage(10);
                         if (player.getHealth() <= 0) {
                             gameLost = true;
+                            break;
                         }
+                        System.out.print("Game Lost! Play Again?(Y/N): ");
                         if (GetInput.getInput().equalsIgnoreCase("n")) {
                             narrator.printExitMessage();
                             return;
@@ -47,12 +55,14 @@ public class GameLoop {
                 System.out.print("Game Won! Play Again?(Y/N): ");
             }
 
-            String s = GetInput.getInput();
+            s = GetInput.getInput();
             if (s.equalsIgnoreCase("n")) {
+                narrator.printExitMessage();
                 break;
             }
 
             gameList.restartGame();
+            narrator.restartConversation();
             gameLost = false; // Reset game state
         }
     }

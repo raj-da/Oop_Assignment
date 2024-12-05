@@ -4,13 +4,13 @@ import JavaGameProject.MiniGames.*;
 
 import java.util.ArrayList;
 
-public class MiniGameList {
+public class GamesList {
 
-    public int index = 0;
+    private int index = 0;
 
      ArrayList<IMiniGame> miniGames;
 
-     public MiniGameList() {
+     public GamesList() {
          miniGames = new ArrayList<>();
          miniGames.add(new RockPaperScissors());
      }
@@ -31,7 +31,7 @@ public class MiniGameList {
          index = 0;
      }
 
-     public void printCongratulations(){
+     private void printCongratulations(){
          System.out.println("Congratulations! You Won");
      }
      public boolean isLastGame(){

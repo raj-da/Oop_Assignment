@@ -34,7 +34,7 @@ public class RockPaperScissors implements IMiniGame {
             System.out.println("Enter your choice (rock, paper, scissors): ");
             userChoice = GetInput.getInput().toLowerCase();
 
-            if (userChoice.equals(computerChoice)) {
+            if (userChoice.equals(computerChoice)) { // extract as choose winner method
                 System.out.println("It's a tie!");
             } else if (userChoice.equals("rock")) {
                 if (computerChoice.equals("scissors")) {
