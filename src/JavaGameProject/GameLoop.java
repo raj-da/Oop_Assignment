@@ -4,12 +4,12 @@ public class GameLoop {
 
     private final NarrativeManager narrator;
     private GamesList gameList;
-    private Main.Character player;
+    private Character player;
 
     public GameLoop() {
         narrator = new NarrativeManager();
         gameList = new GamesList();
-        player = new Main.Character("Player 1", 100);
+        player = new Character("Player 1", 100);
     }
 
 
